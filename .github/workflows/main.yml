@@ -67,6 +67,7 @@ jobs:
       - name: Upload to release
         uses: JasonEtco/upload-to-release@master
         with:
-          name: Movie_Data_Renamer-CLI-${{ env.VERSION }}-${{ runner.os }}-amd64 dist
+          args: Movie_Data_Renamer-CLI-${{ env.VERSION }}-${{ runner.os }}-amd64
+          path: dist
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
