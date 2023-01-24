@@ -1,0 +1,49 @@
+name: PyInstaller
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [windows-latest, macos-latest, ubuntu-latest]
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup Python 3.10
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.10'
+
+      - name: Test number_perser.get_number
+        run: |
+          python test_renamer.py
+
+      - name: Build with PyInstaller for macos/ubuntu
+        if: matrix.os == 'macos-latest' || matrix.os == 'ubuntu-latest'
+        run: |
+          pyinstaller \
+            --onefile renamer.py \
+            --python-option u \
+
+      - name: Build with PyInstaller for windows
+        if: matrix.os == 'windows-latest'
+        run: |
+          pyinstaller `
+            --onefile renamer.py `
+            --python-option u `
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v1
+        with:
+          name: Movie_Data_Renamer-CLI-${{ env.VERSION }}-${{ runner.os }}-amd64
+          path: dist
