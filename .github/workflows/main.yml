@@ -47,6 +47,7 @@ jobs:
           pyinstaller `
             --onefile renamer.py `
             --python-option u `
+
       - name: Set VERSION variable for macos/ubuntu
         if: matrix.os == 'macos-latest' || matrix.os == 'ubuntu-latest'
         run: |
@@ -62,3 +63,9 @@ jobs:
         with:
           name: Movie_Data_Renamer-CLI-${{ env.VERSION }}-${{ runner.os }}-amd64
           path: dist
+        
+      - name: Upload build release
+         uses: actions/upload-artifact@v3
+          with:
+            name: Movie_Data_Renamer-CLI-${{ env.VERSION }}-${{ runner.os }}-amd64
+            path: dist
