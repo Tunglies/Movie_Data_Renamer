@@ -58,11 +58,11 @@ jobs:
         run: |
           echo "VERSION=$(python version.py)" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
 
-      - name: Upload build artifact
-        uses: actions/upload-artifact@v1
-        with:
-          name: Movie_Data_Renamer-CLI-${{ env.VERSION }}-${{ runner.os }}-amd64
-          path: dist
+      # - name: Upload build artifact
+      #   uses: actions/upload-artifact@v1
+      #   with:
+      #     name: Movie_Data_Renamer-CLI-${{ env.VERSION }}-${{ runner.os }}-amd64
+      #     path: dist
         
       - name: Upload build release
          uses: actions/upload-artifact@v3
