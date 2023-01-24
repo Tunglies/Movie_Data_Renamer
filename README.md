@@ -11,6 +11,10 @@
    ```
 2. 复制 renamer.exe 至待处理文件夹中运行
 
+# 鸣谢
+
+[**yoshiko2/Movie_Data_Capture**](https://github.com/yoshiko2/Movie_Data_Capture) **本地电影元数据 抓取工具 | 刮削器**
+
 # 申明
 
 代码已去敏网站及部分敏感信息，用 Padding 或 填充作去敏填充词。
