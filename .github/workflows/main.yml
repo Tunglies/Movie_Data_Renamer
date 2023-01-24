@@ -68,6 +68,5 @@ jobs:
         uses: JasonEtco/upload-to-release@master
         with:
           args: Movie_Data_Renamer-CLI-${{ env.VERSION }}-${{ runner.os }}-amd64
-          path: dist
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
