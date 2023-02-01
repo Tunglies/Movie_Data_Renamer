@@ -3,12 +3,12 @@ name: PyInstaller
 on:
   workflow_dispatch:
   push:
-    tags:
-      - "v*.*.*"
+    # tags:
+      # - "v*.*.*"
   pull_request:
 
 jobs:
-  build:
+  install:
     runs-on: ${{ matrix.os }}
 
     strategy:
@@ -25,30 +25,52 @@ jobs:
           cache: 'pip'
       - run: pip install -r requirements.txt
 
+    test:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [windows-latest, macos-latest, ubuntu-latest]
+
       - name: Test
         run: |
           python test_renamer.py
       
+    build:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [windows-latest, macos-latest, ubuntu-latest]
+
       - name: Build
         run: |
           pyinstaller -F renamer.py -n Movie_Data_Renamer-CLI-${{ env.VERSION }}-${{ runner.os }}-amd64
         
+    
+    artifact:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [windows-latest, macos-latest, ubuntu-latest]
+
       - name: Upload build artifact
         uses: actions/upload-artifact@v2
         with:
           name: Movie_Data_Renamer-CLI-${{ env.VERSION }}-${{ runner.os }}-amd64
           path: dist
 
-  release:
-    steps:
-      - name: Release
-        uses: softprops/action-gh-release@v1
-        if: startsWith(github.ref, 'refs/tags/')
-        with:
-          name: Release ${{ github.ref }}
-          tag_name: ${{ github.ref }}
-          body: TODO New Release.
-          draft: false
-          prerelease: false
-          files: dist/*
-          append_body: true
+  # release:
+  #   steps:
+  #     - name: Release
+  #       uses: softprops/action-gh-release@v1
+  #       if: startsWith(github.ref, 'refs/tags/')
+  #       with:
+  #         name: Release ${{ github.ref }}
+  #         tag_name: ${{ github.ref }}
+  #         body: TODO New Release.
+  #         draft: false
+  #         prerelease: false
+  #         files: dist/*
+  #         append_body: true
