@@ -8,14 +8,16 @@ on:
   pull_request:
 
 jobs:
-  install:
+  build:
     runs-on: ${{ matrix.os }}
 
     strategy:
       matrix:
         os: [windows-latest, macos-latest, ubuntu-latest]
+
     steps:
       - uses: actions/checkout@v3
+
       - name: Setup Python 3.10 - ${{ matrix.os }}
         uses: actions/setup-python@v4
         with:
@@ -23,41 +25,19 @@ jobs:
           cache: 'pip'
       - run: pip install -r requirements.txt
 
-  test:
-    runs-on: ${{ matrix.os }}
-
-    strategy:
-      matrix:
-        os: [windows-latest, macos-latest, ubuntu-latest]
-      steps:
-        - name: Test - ${{ matrix.os }}
-          run: |
-            python test_renamer.py
+      - name: Test - ${{ matrix.os }}
+        run: |
+          python test_renamer.py
       
-  build:
-    runs-on: ${{ matrix.os }}
-
-    strategy:
-      matrix:
-        os: [windows-latest, macos-latest, ubuntu-latest]
-    steps:
       - name: Build - ${{ matrix.os }}
         run: |
           pyinstaller -F renamer.py -n Movie_Data_Renamer-CLI-${{ env.VERSION }}-${{ runner.os }}-amd64
-          
-    
-  artifact:
-    runs-on: ${{ matrix.os }}
-
-    strategy:
-      matrix:
-        os: [windows-latest, macos-latest, ubuntu-latest]
-    steps:
-    - name: Upload build artifact - ${{ matrix.os }}
-      uses: actions/upload-artifact@v2
-      with:
-        name: Movie_Data_Renamer-CLI-${{ env.VERSION }}-${{ runner.os }}-amd64
-        path: dist
+        
+      - name: Upload build artifact - ${{ matrix.os }}
+        uses: actions/upload-artifact@v2
+        with:
+          name: Movie_Data_Renamer-CLI-${{ env.VERSION }}-${{ runner.os }}-amd64
+          path: dist
 
   # release:
   #   steps:
