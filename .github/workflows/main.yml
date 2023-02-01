@@ -3,8 +3,8 @@ name: PyInstaller
 on:
   workflow_dispatch:
   push:
-    # tags:
-      # - "v*.*.*"
+    tags:
+      - "v*.*.*"
   pull_request:
 
 jobs:
@@ -36,7 +36,7 @@ jobs:
       - name: Upload build artifact - ${{ matrix.os }}
         uses: actions/upload-artifact@v2
         with:
-          name: Movie_Data_Renamer-CLI-${{ env.VERSION }}-${{ runner.os }}-amd64
+          name: Movie_Data_Renamer-CLI-${{ env.VERSION }}-${{ runner.os }}-amd64-${{ github.ref }}
           path: dist
 
   release:
