@@ -43,5 +43,5 @@ jobs:
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
         with:
-          files: Movie_Data_Renamer-CLI-${{ env.VERSION }}-${{ runner.os }}-amd64*
+          files: Movie_Data_Renamer-CLI-${{ env.VERSION }}-${{ runner.os }}-amd64
           append_body: true
