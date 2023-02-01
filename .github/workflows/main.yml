@@ -14,6 +14,7 @@ jobs:
     strategy:
       matrix:
         os: [windows-latest, macos-latest, ubuntu-latest]
+        
       - name: Setup Python 3.10 - ${{ matrix.os }}
         uses: actions/setup-python@v4
         with:
@@ -22,6 +23,7 @@ jobs:
       - run: pip install -r requirements.txt
 
   build:
+    needs: install
     runs-on: ${{ matrix.os }}
 
     strategy:
