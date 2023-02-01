@@ -39,7 +39,6 @@ jobs:
           name: Movie_Data_Renamer-CLI-${{ env.VERSION }}-${{ runner.os }}-amd64
           path: dist
 
-    upload:
       - name: Release
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
