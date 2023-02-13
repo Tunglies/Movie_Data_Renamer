@@ -2,7 +2,7 @@ import unittest
 import renamer
 
 
-renamer.DEBUG = False
+renamer.DEBUG = True
 
 
 class RuleCase(unittest.TestCase):
@@ -52,7 +52,8 @@ class RuleCase(unittest.TestCase):
     def test_5(self):
         in_and_expect = {
             "NDS-004": "574NDS-004 (填充填充-填充) (Uncensored Leaked) 填充填充 填充填充",
-            "SNIS-850": "SNIS-850 Padding Padding 填充填充 [FHD][HEVC]", }
+            "SNIS-850": "SNIS-850 Padding Padding 填充填充 [FHD][HEVC]", 
+            "SDMF-002": "[JAVWE.com]SDMF002C.HD.1080P.ZhuixinYou.COM字幕"}
         self.base_assert(in_and_expect)
 
 

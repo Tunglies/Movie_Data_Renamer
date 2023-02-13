@@ -19,12 +19,16 @@ SINGLE = [
 
         "(?<=1H)(.*)",
         "(.*)(?=HHB)"
-        "(?<=1)(.*)(?=HHB)"
+        "(?<=1)(.*)(?=HHB)",
+        "([A-Z]+[\d]+)"
     ]
 ]
 
 DOUBLE = [
-    re.compile(r"([A-Z]+)+([0-9]+)"),
+    re.compile(i) for i in [
+        "([A-Z]+)+([0-9]+)",
+        "([A-Za-z]+)-0*([1-9]\d{2,})"
+    ]
 ]
 
 MEDIA_TYPES = (".mp4", ".mkv", ".wmv", ".avi")
@@ -53,10 +57,10 @@ def format_file_name(name: str) -> str:
         search = rule.search(temp)
         if type(search) != NoneType:
             prefix, suffix = search.groups()
-            suffix = suffix.lstrip("0")
             temp = f"{prefix}-{suffix}"
     debug(f"<<< DOUBLE >>> {temp}")
 
+    temp = temp.upper()
     debug(f"[ Output ] {temp}")
     return temp
 
