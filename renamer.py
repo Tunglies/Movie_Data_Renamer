@@ -36,7 +36,7 @@ MEDIA_TYPES = (".mp4", ".mkv", ".wmv", ".avi")
 
 def debug(*msg: str):
     if DEBUG:
-        print(*msg)
+        print(*map(lambda x: x.encode("UTF-8"), msg))
 
 
 def is_media_extension(extension: str) -> bool:
@@ -120,5 +120,7 @@ def run(file):
 
 
 if __name__ == "__main__":
-    for file in Path(root=__file__).glob("*.*"):
-        run(file)
+    # for file in Path(root=__file__).glob("*.*"):
+        # run(file)
+
+    debug("hello", "world")
