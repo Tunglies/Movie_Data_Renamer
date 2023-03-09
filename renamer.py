@@ -106,8 +106,8 @@ class Media:
         return self
 
     def rename_file(self):
-        if not self.source_path != self.target_path:
-            return self
+        # if not self.source_path != self.target_path:
+            # return self
         try:
             os.rename(self.source_path, self.target_path)
         except Exception as e:
